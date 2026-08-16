@@ -78,18 +78,41 @@ Gli SHA256 sono pubblicati nel corpo di ogni release e in
 [CHECKSUM.txt](CHECKSUM.txt): se vuoi verificare che il file scaricato sia quello
 giusto, in PowerShell basta `Get-FileHash <file> -Algorithm SHA256`.
 
-### Windows mostrerà un avviso
+### Sblocca il file prima di eseguirlo
 
-Alla prima esecuzione comparirà **«Windows ha protetto il PC»**. È previsto:
-l'applicazione non è firmata con un certificato di code signing, che dal 2023
-richiede un token hardware e un costo annuale fuori portata per un progetto
-gratuito.
+Sussurro IA **non è firmata** con un certificato di code signing: costa un token
+hardware e un canone annuale, fuori portata per un programma gratuito. Senza
+firma, Windows mostra **«Windows ha protetto il PC»** quando esegui un file
+appena scaricato.
 
-Si supera con **Ulteriori informazioni → Esegui comunque**.
+Il modo pulito di evitarlo richiede dieci secondi e va fatto **una volta sola**,
+subito dopo il download:
 
-Può anche capitare che un antivirus segnali l'installazione: Sussurro IA aggancia
-la tastiera di sistema per riconoscere la scorciatoia, ed è lo stesso meccanismo
-che usano i keylogger. Cosa ne fa dei tasti è spiegato più sotto.
+1. Tasto destro sul file scaricato → **Proprietà**
+2. In fondo alla scheda *Generale*, spunta **«Annulla blocco»**
+3. **OK**, e poi esegui normalmente
+
+Da PowerShell, se preferisci:
+
+```powershell
+Unblock-File "$HOME\Downloads\Sussurro.IA_1.0.0_x64-setup.exe"
+```
+
+Perché funziona: il browser marchia i file scaricati, e Windows mostra l'avviso
+solo per i file che portano quel marchio. Toglierlo prima di eseguire è un gesto
+consapevole — meglio che abituarsi a cliccare «Esegui comunque» su un avviso di
+sicurezza, che è un riflesso da non allenare.
+
+Se hai già eseguito il file e ti trovi davanti al pannello, la via d'uscita è
+**Ulteriori informazioni → Esegui comunque**.
+
+### L'antivirus potrebbe dire qualcosa
+
+Sussurro IA aggancia la tastiera di sistema per riconoscere la scorciatoia, ed è
+lo stesso meccanismo che usano i keylogger: un antivirus con analisi
+comportamentale può segnalarlo. Che cosa il programma faccia davvero di quei
+tasti — e perché il codice dei tasti normali non entra nemmeno nel programma — è
+spiegato in [Che cosa esce da questo computer](#che-cosa-esce-da-questo-computer).
 
 ## Serve una chiave API Groq
 
