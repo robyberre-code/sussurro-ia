@@ -1,0 +1,4 @@
+# Nessun sorgente qui: questo repo serve alla distribuzione.
+*.exe
+*.msi
+*.zip

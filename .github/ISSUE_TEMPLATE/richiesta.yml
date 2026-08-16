@@ -1,0 +1,42 @@
+name: Proporre una funzionalità
+description: Un'idea, una lingua in più, un comando detto che manca
+labels: ["proposta"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Le proposte non hanno una data e non è detto che vengano realizzate:
+        Sussurro IA è un progetto personale e gratuito. Restano però qui, e le
+        più richieste pesano.
+
+  - type: textarea
+    id: cosa
+    attributes:
+      label: Che cosa vorresti poter fare
+      description: Descrivi il risultato, non la soluzione tecnica.
+      placeholder: |
+        Vorrei poter dettare anche in inglese, non solo in italiano.
+    validations:
+      required: true
+
+  - type: textarea
+    id: perche
+    attributes:
+      label: In quale situazione ti servirebbe
+      description: |
+        Il caso concreto conta più dell'idea: è quello che fa capire se una
+        proposta risolve un problema vero o ne inventa uno.
+      placeholder: |
+        Lavoro con clienti stranieri e scrivo mail in inglese tutto il giorno.
+        Oggi devo dettare in italiano e far tradurre, ma spesso l'originale
+        inglese mi verrebbe meglio direttamente.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternative
+    attributes:
+      label: Come fai adesso
+      description: Che cosa usi al posto di questa funzionalità, se usi qualcosa.
+    validations:
+      required: false

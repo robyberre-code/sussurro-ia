@@ -1,0 +1,77 @@
+name: Segnalare un problema
+description: Qualcosa non funziona come descritto
+labels: ["problema"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Prima di scrivere:** non incollare qui la tua **chiave API** (comincia
+        per `gsk_`) né il **testo che hai dettato**. Le segnalazioni sono
+        pubbliche e restano visibili.
+
+        Se il problema è che le scorciatoie hanno smesso di rispondere, prova
+        prima *cruscotto → azioni → forza reinstallazione hook*: risolve il caso
+        più comune, cioè l'hook che Windows ha disinstallato in silenzio.
+
+  - type: input
+    id: versione
+    attributes:
+      label: Versione di Sussurro IA
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: windows
+    attributes:
+      label: Versione di Windows
+      description: "Impostazioni → Sistema → Informazioni su, oppure `winver`"
+      placeholder: "Windows 11 24H2"
+    validations:
+      required: true
+
+  - type: textarea
+    id: cosa
+    attributes:
+      label: Che cosa succede
+      description: Che cosa ti aspettavi e che cosa è successo invece.
+      placeholder: |
+        Tengo premuto Ctrl+Win in Outlook, parlo, rilascio.
+        Mi aspettavo il testo nel corpo della mail; non compare niente e la
+        pillola torna a riposo.
+    validations:
+      required: true
+
+  - type: textarea
+    id: catena
+    attributes:
+      label: La catena del segnale
+      description: |
+        Nel cruscotto, il pannello in alto. Riporta i numeri dei contatori dopo
+        aver riprovato la dettatura: dicono a quale giunzione si ferma, ed è
+        l'informazione che da sola risolve la maggior parte dei casi.
+      placeholder: |
+        tastiera 1240 · hook 1240 · combo 3 · microfono 3 · trascrizione 0 · inserimento 0
+    validations:
+      required: false
+
+  - type: textarea
+    id: registro
+    attributes:
+      label: Il registro
+      description: |
+        Le ultime righe del pannello *registro*, in fondo al cruscotto. Togli
+        eventuali frammenti di testo dettato prima di incollarle.
+      render: text
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: verifiche
+    attributes:
+      label: Verifiche fatte
+      options:
+        - label: La pastiglia della chiave API è verde
+        - label: Ho provato *forza reinstallazione hook*
+        - label: Ho provato in un'altra applicazione (per esempio il Blocco note)
+        - label: Un antivirus potrebbe aver bloccato qualcosa

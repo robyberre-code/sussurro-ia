@@ -1,0 +1,12 @@
+# I moduli sono obbligatori: una segnalazione senza versione e senza i contatori
+# della catena del segnale costa due o tre scambi di messaggi prima di poter
+# essere anche solo riprodotta.
+blank_issues_enabled: false
+
+contact_links:
+  - name: Domande e idee
+    url: https://github.com/robyberre-code/sussurro-ia/discussions
+    about: Per chiedere come si fa qualcosa, o per proporre senza aprire una segnalazione.
+  - name: Come creare la chiave API Groq
+    url: https://github.com/robyberre-code/sussurro-ia#serve-una-chiave-api-groq
+    about: Se l'app registra ma non produce testo, quasi sempre manca la chiave.
