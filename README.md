@@ -106,6 +106,23 @@ sicurezza, che è un riflesso da non allenare.
 Se hai già eseguito il file e ti trovi davanti al pannello, la via d'uscita è
 **Ulteriori informazioni → Esegui comunque**.
 
+### Con winget — in arrivo
+
+Il pacchetto è in attesa di approvazione nel catalogo ufficiale di winget
+([pull request #418481](https://github.com/microsoft/winget-pkgs/pull/418481),
+validazione automatica superata). Appena viene accettata l'installazione diventa:
+
+```
+winget install RobertoB.SussurroIA
+```
+
+Per questa via **non compare nessun avviso di SmartScreen** e non serve sbloccare
+niente: winget scarica il file da sé, ne verifica lo SHA256 e non gli applica il
+marchio da cui dipende l'avviso.
+
+Finché la pull request non è unita, quel comando risponde
+`No package found matching input criteria`: usa il download qui sopra.
+
 ### L'antivirus potrebbe dire qualcosa
 
 Sussurro IA aggancia la tastiera di sistema per riconoscere la scorciatoia, ed è
