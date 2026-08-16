@@ -70,8 +70,8 @@ Scarica dalla pagina **[Releases](../../releases/latest)**:
 
 | File | Quando usarlo |
 |---|---|
-| `Sussurro IA_1.0.0_x64-setup.exe` | installazione normale — **consigliato** |
-| `Sussurro IA_1.0.0_x64_it-IT.msi` | installazioni gestite, distribuzione aziendale |
+| `Sussurro.IA_1.0.0_x64-setup.exe` | installazione normale — **consigliato** |
+| `Sussurro.IA_1.0.0_x64_it-IT.msi` | installazioni gestite, distribuzione aziendale |
 | `sussurro.exe` | l'eseguibile da solo, se preferisci non installare niente |
 
 Gli SHA256 sono pubblicati nel corpo di ogni release e in
