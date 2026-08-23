@@ -47,6 +47,23 @@ lo scadenzario» — e lo riscrive come richiesta ben posta, con i requisiti per
 punti e l'elenco delle cose che non hai detto e che chi legge andrebbe altrimenti
 a indovinare.
 
+### Perfeziona il testo
+
+C'è un interruttore — nel cruscotto, o con un clic sulla pillola — che cambia il
+risultato di **entrambe** le scorciatoie: la dettatura non viene solo trascritta,
+viene **riscritta in italiano scritto**. Si sciolgono i giri di parole, si ordina
+la sintassi, spariscono intercalari e falsi inizi, e i concetti separati finiscono
+in paragrafi distinti.
+
+Quello che **non** fa, ed è la parte che conta:
+
+- non aggiunge fatti, nomi, numeri o date che non hai detto;
+- non riassume e non taglia: nessun contenuto sparisce;
+- non attenua e non rafforza. «Questo contratto è una truffa» non diventa
+  «ritengo che questo contratto sia una truffa»: aggiungere una prudenza che non
+  avevi è un cambio di contenuto travestito da cambio di registro. Chi detta
+  arrabbiato ha diritto a un testo arrabbiato, scritto bene.
+
 ### Comandi detti
 
 Chi detta non può premere Invio né aprire il pannello delle emoji, quindi alcune
@@ -70,8 +87,8 @@ Scarica dalla pagina **[Releases](../../releases/latest)**:
 
 | File | Quando usarlo |
 |---|---|
-| `Sussurro.IA_1.0.0_x64-setup.exe` | installazione normale — **consigliato** |
-| `Sussurro.IA_1.0.0_x64_it-IT.msi` | installazioni gestite, distribuzione aziendale |
+| `Sussurro.IA_1.0.1_x64-setup.exe` | installazione normale — **consigliato** |
+| `Sussurro.IA_1.0.1_x64_it-IT.msi` | installazioni gestite, distribuzione aziendale |
 | `sussurro.exe` | l'eseguibile da solo, se preferisci non installare niente |
 
 Gli SHA256 sono pubblicati nel corpo di ogni release e in
@@ -95,7 +112,7 @@ subito dopo il download:
 Da PowerShell, se preferisci:
 
 ```powershell
-Unblock-File "$HOME\Downloads\Sussurro.IA_1.0.0_x64-setup.exe"
+Unblock-File "$HOME\Downloads\Sussurro.IA_1.0.1_x64-setup.exe"
 ```
 
 Perché funziona: il browser marchia i file scaricati, e Windows mostra l'avviso
@@ -171,9 +188,28 @@ La pillola **non mostra mai il testo**: quello va a destinazione, non sullo sche
 Prima prova consigliata: apri il Blocco note, tieni premuto `Ctrl`+`Win`, di'
 qualcosa, rilascia.
 
-Dal **cruscotto** si configura tutto e si legge lo stato reale dell'applicazione:
-la catena del segnale (dove si è fermata una dettatura), il registro delle ultime
-dettature, la chiave API, la posizione della pillola, l'avvio automatico.
+Dal **cruscotto** si configura tutto e si legge lo stato reale dell'applicazione.
+È diviso in due schede, e quella che stavi usando viene ricordata:
+
+- **uso** — chiave API, modo di uscita, perfezionamento, posizione della pillola,
+  avvio automatico, e il promemoria di come si detta;
+- **diagnostica** — la catena del segnale, cioè dove si è fermata una dettatura, i
+  contatori e il registro delle ultime dettature.
+
+### Scegliere i modelli
+
+C'è un pannello che permette di cambiare il modello usato da ciascuno dei due
+slot — quello che trascrive la voce e quello che traduce o riscrive. Puoi chiedere
+all'endpoint l'elenco dei modelli adatti a quel mestiere, oppure scrivere un nome
+a mano se il filtro è troppo severo.
+
+Prima di adottarne uno puoi **provarlo**: l'app gli manda le frasi che smascherano
+i modelli che *rispondono* invece di tradurre — «qual è la capitale della
+Francia?» deve tornare tradotta, non deve tornare «Parigi» — e lo fa **in tutte le
+lingue di uscita**, non solo in quella attiva. Il motivo è concreto: le difese
+contro quel comportamento non reggono allo stesso modo in ogni lingua, e provarne
+una sola significa scoprire il problema il giorno in cui cambi lingua, a metà di
+una dettatura, con il testo già finito nel documento.
 
 ## Che cosa esce da questo computer
 
