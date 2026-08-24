@@ -64,6 +64,11 @@ Il testo viene incollato, non digitato: è l'unico modo affidabile di scrivere i
 tutte le applicazioni. Sussurro IA legge quindi gli appunti per conservarne il
 contenuto, incolla, e ripristina subito quello che c'era prima.
 
+Un'eccezione: se l'inserimento non riesce — per esempio perché la finestra di
+destinazione non c'è più — il testo dettato viene lasciato negli appunti, così
+puoi incollarlo tu con Ctrl+V invece di perderlo. In quel caso il contenuto
+precedente degli appunti non viene ripristinato.
+
 ## Il testo dettato
 
 Non viene mai scritto su disco e non compare nei file di diagnostica. Il registro

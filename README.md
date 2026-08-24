@@ -229,7 +229,10 @@ ciò che digiti resta soltanto il fatto che un tasto è stato premuto, che serve
 annullare la dettatura quando stai usando un'altra scorciatoia.
 
 **Gli appunti** vengono letti per conservarne il contenuto, usati per incollare il
-testo, e **ripristinati subito dopo**.
+testo, e **ripristinati subito dopo**. Se però l'inserimento non riesce — la
+finestra di destinazione non c'è più, o rifiuta l'incolla — il testo dettato
+resta negli appunti perché tu possa incollarlo con Ctrl+V invece di perderlo, e
+in quel caso il contenuto precedente non viene ripristinato.
 
 **Il testo dettato** non viene mai scritto su disco e non compare nei log. Il
 registro del cruscotto vive finché la finestra è aperta.
