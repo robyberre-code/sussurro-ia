@@ -10,14 +10,15 @@ body:
         pubbliche e restano visibili.
 
         Se il problema è che le scorciatoie hanno smesso di rispondere, prova
-        prima *cruscotto → azioni → forza reinstallazione hook*: risolve il caso
+        prima *cruscotto → 07 diagnostica → azioni → forza reinstallazione
+        hook*: risolve il caso
         più comune, cioè l'hook che Windows ha disinstallato in silenzio.
 
   - type: input
     id: versione
     attributes:
       label: Versione di Sussurro IA
-      placeholder: "1.0.0"
+      placeholder: "2.0.0"
     validations:
       required: true
 
@@ -47,7 +48,7 @@ body:
     attributes:
       label: La catena del segnale
       description: |
-        Nel cruscotto, il pannello in alto. Riporta i numeri dei contatori dopo
+        Nel cruscotto, pagina 07 diagnostica, il pannello «catena del segnale». Riporta i numeri dei contatori dopo
         aver riprovato la dettatura: dicono a quale giunzione si ferma, ed è
         l'informazione che da sola risolve la maggior parte dei casi.
       placeholder: |
@@ -60,8 +61,8 @@ body:
     attributes:
       label: Il registro
       description: |
-        Le ultime righe del pannello *registro*, in fondo al cruscotto. Togli
-        eventuali frammenti di testo dettato prima di incollarle.
+        Pagina 07 diagnostica → *registro tecnico* → *copia diagnostica*. Togli
+        eventuali titoli di finestra che non vuoi rendere pubblici prima di incollarlo.
       render: text
     validations:
       required: false
@@ -71,7 +72,7 @@ body:
     attributes:
       label: Verifiche fatte
       options:
-        - label: La pastiglia della chiave API è verde
+        - label: La pastiglia della chiave API è verde (o, con il motore sul computer, c'è un modello in uso)
         - label: Ho provato *forza reinstallazione hook*
         - label: Ho provato in un'altra applicazione (per esempio il Blocco note)
         - label: Un antivirus potrebbe aver bloccato qualcosa

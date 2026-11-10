@@ -27,6 +27,23 @@ un'altra applicazione: il testo va dove stava il cursore.
   da mostrare.
 -->
 
+## Novità della 2.0
+
+- **Trascrizione sul tuo computer**: se non vuoi che l'audio esca, scegli un
+  modello dal cruscotto e lo trascrive Sussurro stesso. Vedi
+  [Trascrivere sul proprio computer](#trascrivere-sul-proprio-computer).
+- **Altre scorciatoie**: se il tasto `Win` ti dà fastidio, puoi usare
+  `Ctrl`+`Alt` o `Ctrl`+`Shift`.
+- **`Esc` annulla** la dettatura mentre registri, e le **mani libere** permettono
+  di parlare senza tenere premuto niente.
+- **Dizionario personale**: parole da riconoscere e sostituzioni fisse.
+- **Taglio dei silenzi** prima della trascrizione, e **suoni di feedback**
+  facoltativi.
+- **Cruscotto rifatto**: un centro con lo stato del sistema e sette pagine
+  numerate, da percorrere in ordine.
+- **Copia l'ultima dettatura** dall'icona nell'area di notifica, se un'incolla è
+  andata persa.
+
 ## Come si detta
 
 | Scorciatoia | Cosa esce |
@@ -46,6 +63,33 @@ quello che hai raccontato a voce — «vorrei un'app che mi gestisce le fatture 
 lo scadenzario» — e lo riscrive come richiesta ben posta, con i requisiti per
 punti e l'elenco delle cose che non hai detto e che chi legge andrebbe altrimenti
 a indovinare.
+
+### Se il tasto Win ti dà fastidio
+
+Dal cruscotto, pagina **03 scorciatoia**, puoi scegliere un'altra coppia:
+
+| Scelta | Dettatura semplice | Dettatura tradotta |
+|---|---|---|
+| predefinita | `Ctrl` + `Win` | `Ctrl` + `Shift` + `Win` |
+| Ctrl + Alt | `Ctrl` + `Alt` | `Ctrl` + `Alt` + `Shift` |
+| Ctrl + Shift | `Ctrl` + `Shift` | `Ctrl` + `Shift` + `Alt` |
+
+Con le scelte che usano `Alt` conta **solo l'Alt di sinistra**: `AltGr`, quello
+con cui si scrivono `@ # [ ] €`, non fa mai partire una dettatura. Il cambio
+vale subito, senza riavviare.
+
+### Esc annulla, e le mani libere
+
+Mentre registri, **`Esc`** butta via la dettatura: non viene trascritta né
+inviata, e il tasto non arriva all'applicazione che hai sotto, così non ti chiude
+anche il dialogo in cui stavi dettando. Fuori dalla registrazione `Esc` funziona
+come sempre.
+
+Le **mani libere** sono facoltative, spente di default (pagina **03
+scorciatoia**). Con le mani libere accese, un **tocco breve** della combinazione
+apre la registrazione e la lascia aperta: parli senza tenere niente premuto, e
+per finire ripremi la combinazione. Dopo dieci minuti la registrazione si chiude
+da sola, contro il microfono dimenticato aperto.
 
 ### Perfeziona il testo
 
@@ -79,16 +123,60 @@ Il prefisso «emoji» (o «faccina») è obbligatorio: «sorriso» e «cuore» d
 sono parole correntissime, e riconoscerle significherebbe cancellarle dal testo
 di chi le stava semplicemente dicendo.
 
+I comandi non valgono nel modo prompt: lì «vai a capo» fa parte di ciò che stai
+descrivendo.
+
+### Dizionario personale
+
+Nel cruscotto, pagina **05 dizionario**, ci sono due elenchi:
+
+- **parole da riconoscere** — nomi, cognomi, sigle, termini tecnici che il
+  trascrittore sbaglia. Arrivano al modello come suggerimento di ortografia:
+  funziona meglio con poche voci davvero ostiche che con un elenco lungo;
+- **sostituzioni** — correzioni fisse nella forma `da → a`, per esempio
+  `chat gpt → ChatGPT`. Valgono per parole intere e servono per l'errore che si
+  ripete sempre uguale.
+
+### Silenzi e suoni
+
+Prima di trascrivere, l'app **toglie i silenzi lunghi** dal clip e scarta quelli
+senza voce («Non ti ho sentito»): ci sono meno secondi vuoti in cui il modello
+potrebbe inventare frasi. È acceso di default e si spegne dalla pagina **01
+trascrizione**, se hai una voce così debole da fartela tagliare.
+
+I **suoni di feedback** (pagina **02 microfono**, spenti di default) dicono «ti
+ascolto» e «ho finito» senza dover guardare la pillola.
+
 ## Installazione
 
 Requisiti: **Windows 10 o 11 a 64 bit** e un microfono.
+
+### Con winget — consigliato
+
+```
+winget install RobertoB.SussurroIA
+```
+
+Per questa via **non compare nessun avviso di SmartScreen** e non serve sbloccare
+niente: winget scarica il file da sé, ne verifica lo SHA256 e non gli applica il
+marchio da cui dipende l'avviso. Per aggiornare una versione già installata:
+
+```
+winget upgrade RobertoB.SussurroIA
+```
+
+Ogni nuova versione passa dall'approvazione del catalogo di winget, che di solito
+richiede qualche giorno: finché la 2.0.0 non è approvata, winget installa la
+versione precedente. Se vuoi la 2.0.0 subito, usa il download qui sotto.
+
+### Dalla pagina Releases
 
 Scarica dalla pagina **[Releases](../../releases/latest)**:
 
 | File | Quando usarlo |
 |---|---|
-| `Sussurro.IA_1.0.1_x64-setup.exe` | installazione normale — **consigliato** |
-| `Sussurro.IA_1.0.1_x64_it-IT.msi` | installazioni gestite, distribuzione aziendale |
+| `Sussurro.IA_2.0.0_x64-setup.exe` | installazione normale — **consigliato** |
+| `Sussurro.IA_2.0.0_x64_it-IT.msi` | installazioni gestite, distribuzione aziendale |
 | `sussurro.exe` | l'eseguibile da solo, se preferisci non installare niente |
 
 Gli SHA256 sono pubblicati nel corpo di ogni release e in
@@ -112,7 +200,7 @@ subito dopo il download:
 Da PowerShell, se preferisci:
 
 ```powershell
-Unblock-File "$HOME\Downloads\Sussurro.IA_1.0.1_x64-setup.exe"
+Unblock-File "$HOME\Downloads\Sussurro.IA_2.0.0_x64-setup.exe"
 ```
 
 Perché funziona: il browser marchia i file scaricati, e Windows mostra l'avviso
@@ -122,23 +210,6 @@ sicurezza, che è un riflesso da non allenare.
 
 Se hai già eseguito il file e ti trovi davanti al pannello, la via d'uscita è
 **Ulteriori informazioni → Esegui comunque**.
-
-### Con winget — in arrivo
-
-Il pacchetto è in attesa di approvazione nel catalogo ufficiale di winget
-([pull request #418481](https://github.com/microsoft/winget-pkgs/pull/418481),
-validazione automatica superata). Appena viene accettata l'installazione diventa:
-
-```
-winget install RobertoB.SussurroIA
-```
-
-Per questa via **non compare nessun avviso di SmartScreen** e non serve sbloccare
-niente: winget scarica il file da sé, ne verifica lo SHA256 e non gli applica il
-marchio da cui dipende l'avviso.
-
-Finché la pull request non è unita, quel comando risponde
-`No package found matching input criteria`: usa il download qui sopra.
 
 ### L'antivirus potrebbe dire qualcosa
 
@@ -150,9 +221,15 @@ spiegato in [Che cosa esce da questo computer](#che-cosa-esce-da-questo-computer
 
 ## Serve una chiave API Groq
 
-Sussurro IA non trascrive sul tuo computer: manda l'audio a **Groq**, che è di
-gran lunga il più rapido sulle clip brevi — circa 350 ms per una frase. La chiave
-è tua, l'account è tuo, e il piano gratuito **non chiede la carta di credito**.
+Di preimpostazione Sussurro IA manda l'audio a **Groq**, che è di gran lunga il
+più rapido sulle clip brevi — circa 350 ms per una frase. La chiave è tua,
+l'account è tuo, e il piano gratuito **non chiede la carta di credito**.
+
+Se preferisci che l'audio non esca dal computer, c'è il
+[motore sul computer](#trascrivere-sul-proprio-computer). La chiave Groq resta
+però necessaria per **tradurre**, per il **modo prompt** e per il
+**perfezionamento del testo**: senza, quei modi inseriscono il testo trascritto
+così com'è, e l'app te lo dice.
 
 Due minuti in tutto:
 
@@ -164,8 +241,8 @@ Due minuti in tutto:
    non è un dramma: si cancella e se ne crea un'altra, ma non c'è modo di
    rileggerla.
 5. **Incollala nell'app**: clic sull'icona di Sussurro IA nell'area di notifica
-   (vicino all'orologio) → **Cruscotto** → pannello **chiave API** → incolla e
-   premi **salva**. La pastiglia diventa verde.
+   (vicino all'orologio) → **cruscotto** → pagina **01 trascrizione** → pannello
+   **chiave API** → incolla e premi **salva**. La pastiglia diventa verde.
 
 La chiave finisce nel **Gestore credenziali di Windows**, mai in un file, mai nei
 log, e viene riletta dal portachiavi a ogni richiesta.
@@ -175,6 +252,45 @@ una dettatura è una richiesta di pochi secondi di audio. I limiti aggiornati so
 su [console.groq.com/settings/limits](https://console.groq.com/settings/limits).
 Il costo delle trascrizioni, se un giorno superassi il piano gratuito, è a tuo
 carico secondo le tariffe di Groq.
+
+## Trascrivere sul proprio computer
+
+Chi non vuole che l'audio esca dal computer può far trascrivere **a Sussurro
+stesso**: il motore (whisper.cpp) è dentro l'app, non c'è niente da installare a
+parte. Serve solo un **modello**, che si sceglie e si scarica dal cruscotto.
+
+1. Cruscotto, pagina **01 trascrizione**: nel selettore **motore** scegli **sul
+   computer — l'audio non esce**.
+2. Compaiono tre modelli. Premi **scarica** su quello che vuoi: a download finito
+   e verificato diventa il modello in uso.
+3. Detta come sempre.
+
+Non tutti i computer reggono il modello più grande, per questo sono tre. Le
+misure sono di una frase di 10 secondi in italiano, su un processore a 8 core
+senza scheda grafica:
+
+| Modello | Peso | Tempo | Per chi |
+|---|---|---|---|
+| **Leggero** | 57 MB | ~1 s | PC poco potenti: risponde quasi subito, sbaglia più spesso nomi e parole rare |
+| **Equilibrato** — consigliato | 181 MB | ~3 s | la maggior parte dei computer: buona precisione in italiano |
+| **Preciso** | 547 MB | ~12 s | PC potenti: il più preciso, ma sul solo processore può metterci quanto hai parlato |
+
+Da sapere:
+
+- **Nessun modello si scarica da solo.** Il download parte solo quando premi
+  **scarica**, dal repository pubblico di whisper.cpp su Hugging Face, e il file
+  viene usato solo se peso e impronta SHA-256 coincidono con quelli attesi.
+- **Offline funziona la dettatura semplice.** Traduzione, modo prompt e
+  perfezionamento usano ancora Groq: gli mandano il **testo** già trascritto, non
+  l'audio.
+- **Nessun ripiego automatico sul cloud.** Se il modello scelto manca, la
+  dettatura fallisce con un messaggio chiaro invece di mandare l'audio a Groq di
+  nascosto.
+- **Si torna al cloud** rimettendo il selettore su **cloud — Groq**. I modelli
+  scaricati si tolgono dal disco con **elimina**, o tutti insieme con **libera
+  spazio**.
+- Il motore richiede un processore con istruzioni **AVX2** (Intel e AMD dal 2013
+  circa). Sui processori più vecchi resta il cloud.
 
 ## Primo avvio
 
@@ -188,20 +304,31 @@ La pillola **non mostra mai il testo**: quello va a destinazione, non sullo sche
 Prima prova consigliata: apri il Blocco note, tieni premuto `Ctrl`+`Win`, di'
 qualcosa, rilascia.
 
-Dal **cruscotto** si configura tutto e si legge lo stato reale dell'applicazione.
-È diviso in due schede, e quella che stavi usando viene ricordata:
+Dall'icona nell'area di notifica si apre il **cruscotto**, si **copia l'ultima
+dettatura**, si sospende la dettatura o si esce.
 
-- **uso** — chiave API, modo di uscita, perfezionamento, posizione della pillola,
-  avvio automatico, e il promemoria di come si detta;
-- **diagnostica** — la catena del segnale, cioè dove si è fermata una dettatura, i
-  contatori e il registro delle ultime dettature.
+### Il cruscotto
+
+Si apre sul **centro**: un cerchio con lo stato del sistema, da cui partono sette
+linee verso sette pagine numerate. L'ordine è quello in cui ha senso percorrerle:
+prima si configura, poi si detta, e la diagnostica serve quando qualcosa non va.
+
+| Pagina | A cosa serve |
+|---|---|
+| **01 trascrizione** | motore cloud o sul computer, i modelli da scaricare, taglio dei silenzi, chiave API |
+| **02 microfono** | microfono, posizione della pillola, avvio con Windows, suoni di feedback |
+| **03 scorciatoia** | quale coppia di tasti usare, mani libere, sospensione |
+| **04 testo** | che cosa fa la combinazione tradotta, perfezionamento, scelta e prova dei modelli |
+| **05 dizionario** | parole da riconoscere e sostituzioni |
+| **06 detta** | il promemoria di come si detta e le ultime dettature con il loro esito |
+| **07 diagnostica** | la catena del segnale, il registro tecnico, le azioni di riparazione |
 
 ### Scegliere i modelli
 
-C'è un pannello che permette di cambiare il modello usato da ciascuno dei due
-slot — quello che trascrive la voce e quello che traduce o riscrive. Puoi chiedere
-all'endpoint l'elenco dei modelli adatti a quel mestiere, oppure scrivere un nome
-a mano se il filtro è troppo severo.
+Nella pagina **04 testo** si può cambiare il modello usato da ciascuno dei due
+slot — quello che trascrive la voce nel cloud e quello che traduce o riscrive.
+Puoi chiedere all'endpoint l'elenco dei modelli adatti a quel mestiere, oppure
+scrivere un nome a mano se il filtro è troppo severo.
 
 Prima di adottarne uno puoi **provarlo**: l'app gli manda le frasi che smascherano
 i modelli che *rispondono* invece di tradurre — «qual è la capitale della
@@ -214,11 +341,15 @@ una dettatura, con il testo già finito nel documento.
 ## Che cosa esce da questo computer
 
 La stessa informativa compare al primo avvio dell'app e si rilegge quando vuoi dal
-pulsante **«che cosa esce da questo computer»**.
+collegamento **«che cosa esce da questo computer»**, sotto il cerchio del
+cruscotto.
 
-**L'audio** esce solo mentre tieni premuta la combinazione, e va al servizio che
-hai configurato tu con la tua chiave. Fuori da quei secondi il microfono non
-registra.
+**L'audio** esce solo mentre registri — tenendo premuta la combinazione, o fra i
+due tocchi se hai attivato le mani libere — e va al servizio che hai configurato
+tu con la tua chiave. Fuori da quei secondi il microfono non registra. Con il
+**motore sul computer** l'audio non esce affatto: lo trascrive Sussurro stesso.
+Traduzione, modo prompt e perfezionamento mandano a Groq il **testo** già
+trascritto, non l'audio.
 
 **La tastiera.** Per riconoscere una combinazione di soli modificatori Windows non
 offre alternative a un hook di sistema, che per costruzione riceve ogni tasto
@@ -226,7 +357,10 @@ premuto sul computer. Sussurro IA **scarta il codice dei tasti che non sono
 modificatori nel punto esatto in cui lo riceve**, prima di qualunque altra
 operazione: non entra nel programma, non viene salvato, non viene trasmesso. Di
 ciò che digiti resta soltanto il fatto che un tasto è stato premuto, che serve ad
-annullare la dettatura quando stai usando un'altra scorciatoia.
+annullare la dettatura quando stai usando un'altra scorciatoia. L'unica
+eccezione è un'informazione sola: mentre registri, il programma riconosce `Esc`,
+perché annulla la dettatura. Fuori dalla registrazione nemmeno `Esc` viene
+identificato.
 
 **Gli appunti** vengono letti per conservarne il contenuto, usati per incollare il
 testo, e **ripristinati subito dopo**. Se però l'inserimento non riesce — la
@@ -234,25 +368,37 @@ finestra di destinazione non c'è più, o rifiuta l'incolla — il testo dettato
 resta negli appunti perché tu possa incollarlo con Ctrl+V invece di perderlo, e
 in quel caso il contenuto precedente non viene ripristinato.
 
-**Il testo dettato** non viene mai scritto su disco e non compare nei log. Il
-registro del cruscotto vive finché la finestra è aperta.
+**Il testo dettato** non viene mai scritto su disco e non compare nei log.
+L'ultima dettatura resta solo in memoria, per il comando «Copia l'ultima
+dettatura», e sparisce chiudendo l'app.
 
-**Sul computer restano** due preferenze in un file di testo e la chiave API nel
-Gestore credenziali.
+**Il registro tecnico** (pagina 07) tiene le ultime 500 righe di diagnosi, solo in
+memoria. Contiene nomi di programmi e titoli di finestre, mai il testo dettato, e
+non lo manda nessuno: lo copi tu con **copia diagnostica**. Rileggilo prima di
+allegarlo a una segnalazione, perché un titolo di finestra può essere il nome di
+un documento.
+
+**Sul computer restano** le preferenze in un file di testo (`impostazioni.json`,
+nessun segreto: fra le altre cose il dizionario che hai scritto, in chiaro), la
+chiave API nel Gestore credenziali e, se li hai scaricati, i modelli locali in
+`%LOCALAPPDATA%\com.sussurroia.app\modelli`.
 
 **Verso chi ha realizzato il programma non arriva niente.** Nessuna telemetria,
-nessuna statistica d'uso, nessun controllo aggiornamenti: l'unica connessione di
-rete che l'app apre è quella verso l'endpoint di trascrizione che hai configurato.
+nessuna statistica d'uso, nessun controllo aggiornamenti. Le connessioni di rete
+che l'app apre sono soltanto quella verso il servizio che hai configurato e il
+download di un modello locale, quando lo chiedi tu.
 
 ## Se qualcosa non va
 
 | Sintomo | Dove guardare |
 |---|---|
-| le scorciatoie non rispondono più | cruscotto → azioni → **forza reinstallazione hook** |
-| registra ma non esce testo | pannello **chiave API**: la pastiglia è verde? |
-| il testo finisce nella finestra sbagliata | verifica che **pillola non attivabile** sia spuntato |
+| le scorciatoie non rispondono più | cruscotto → **07 diagnostica** → azioni → **forza reinstallazione hook** |
+| registra ma non esce testo | pagina **01 trascrizione**: la pastiglia della chiave API è verde? Con il motore sul computer, c'è un modello **in uso**? |
+| il testo non si incolla | se la pillola dice «Inserito senza conferma», la dettatura è negli appunti: premi `Ctrl+V`, o riprendila da **Copia l'ultima dettatura** nell'area di notifica |
+| «Scegli un modello locale» o «non è scaricato» | pagina **01 trascrizione**: scarica un modello, oppure torna al cloud |
+| il testo finisce nella finestra sbagliata | pagina **07**: verifica che **pillola non attivabile** sia spuntato |
 | esce testo su frasi mai dette | è un'allucinazione sul silenzio: parla più vicino al microfono |
-| il menu Start si apre a ogni dettatura | spunta **blocca il menu Start al rilascio di Win** |
+| il menu Start si apre a ogni dettatura | spunta **blocca il menu Start al rilascio di Win**, o scegli una scorciatoia senza `Win` nella pagina **03** |
 | non capisci dove si è fermata | la **catena del segnale**: il contatore che smette di crescere dice quale giunzione è muta |
 
 Se non basta, **[apri una segnalazione](../../issues/new/choose)**. Nel modulo
@@ -271,4 +417,6 @@ Le condizioni complete sono in [CONDIZIONI.md](CONDIZIONI.md) e vengono mostrate
 durante l'installazione.
 
 Il codice sorgente non è pubblico. Questo repository serve alla distribuzione,
-alle segnalazioni e alla documentazione.
+alle segnalazioni e alla documentazione. Il motore di trascrizione sul computer
+usa [whisper.cpp](https://github.com/ggml-org/whisper.cpp) (licenza MIT) e i
+modelli Whisper pubblicati da quel progetto.
