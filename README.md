@@ -27,6 +27,20 @@ un'altra applicazione: il testo va dove stava il cursore.
   da mostrare.
 -->
 
+## Novità della 2.0.1
+
+- **Note e promemoria**: un quinto modo della scorciatoia tradotta, **note**,
+  trasforma ciò che detti in note ordinate — titolo, categoria, scadenza — con
+  i promemoria come notifiche di Windows. Vedi [Note e promemoria](#note-e-promemoria).
+- **Invio delle note a un altro sistema**, facoltativo: a ogni nota creata,
+  cambiata, fatta, riaperta o eliminata parte un `POST` JSON verso un indirizzo
+  `https://` scelto da te. Il formato è descritto in
+  [Mandare le note a un altro sistema](#mandare-le-note-a-un-altro-sistema).
+- **La pillola si trascina** con il mouse dove preferisci, e resta lì anche ai
+  prossimi avvii.
+- **Il modello che trascrive nel cloud** si sceglie ora nella pagina **01
+  trascrizione**, accanto al motore.
+
 ## Novità della 2.0
 
 - **Trascrizione sul tuo computer**: se non vuoi che l'audio esca, scegli un
@@ -51,6 +65,7 @@ un'altra applicazione: il testo va dove stava il cursore.
 | `Ctrl` + `Win` | il testo così come l'hai detto, ripulito dagli intercalari e punteggiato |
 | `Ctrl` + `Shift` + `Win` | il testo **tradotto** in inglese, spagnolo o tedesco |
 | `Ctrl` + `Shift` + `Win` | oppure **riscritto come prompt**, se scegli quel modo |
+| `Ctrl` + `Shift` + `Win` | oppure **salvato fra le note**, senza scrivere niente nel campo |
 
 Tieni premuto mentre parli, rilascia quando hai finito. Non c'è un tasto per
 iniziare e uno per finire.
@@ -147,6 +162,131 @@ trascrizione**, se hai una voce così debole da fartela tagliare.
 I **suoni di feedback** (pagina **02 microfono**, spenti di default) dicono «ti
 ascolto» e «ho finito» senza dover guardare la pillola.
 
+## Note e promemoria
+
+La scorciatoia tradotta ha un quinto modo, accanto alle tre lingue e al prompt:
+**note** (sigla `NT` sulla pillola, «salva come nota» nella pagina **04 testo**).
+In quel modo ciò che detti **non viene scritto in nessun campo**: Groq lo ordina
+in una o più note — titolo, dettagli, categoria e, se l'hai detta, la scadenza —
+e le ritrovi nella pagina **07 note** del cruscotto.
+
+- **Più cose in una dettatura diventano più note.** «Ricordami di pagare il
+  bollo entro venerdì e di chiamare l'idraulico» sono due note, una sola con la
+  scadenza.
+- **Le date vengono controllate.** Una data che non esiste o che è già passata
+  viene tolta, e la nota resta. «Ogni mese il cinque» diventa una nota che si
+  ripete.
+- **La nota non si perde mai.** Se Groq non risponde, o manca la chiave, si
+  salva la trascrizione così com'è, marcata **da riordinare**: la si fa
+  riordinare più tardi, o la si sistema a mano.
+- **Promemoria.** Una notifica di Windows al giorno per ogni nota che sta per
+  scadere (da quanti giorni prima lo scegli tu), una all'orario se la nota ne
+  ha uno, e una volta alla settimana il riepilogo delle note senza data. Gli
+  avvisi partono mentre Sussurro IA è acceso; quelli maturati a computer spento
+  arrivano al prossimo avvio. Una nota che avvisa si può rimandare di un'ora, a
+  domani o di tre giorni.
+- **Fatta.** Una nota che si ripete, segnata come fatta, non si chiude: passa
+  alla scadenza successiva.
+
+Le note si possono anche scrivere a mano, cercare, filtrare per categoria e
+**esportare negli appunti**. Stanno in un file sul computer
+(`%APPDATA%\com.sussurroia.app\note.json`).
+
+### Mandare le note a un altro sistema
+
+Nella pagina **07 note**, sotto **invio a un altro sistema**, si può indicare un
+indirizzo `https://` (niente `http://`). Da quel momento a ogni nota creata,
+cambiata, fatta, riaperta o eliminata parte un `POST` con un JSON. Le note
+restano comunque sul computer: è una copia in uscita, in un verso solo. Il tasto
+**salva e prova** manda un evento di prova.
+
+Tutto ciò che serve a indirizzare le note sta nell'indirizzo, chiave compresa
+(per esempio `https://…/api/hooks/notes/casa?code=<chiave>`): non c'è un token a
+parte. L'indirizzo sta nel Gestore credenziali di Windows, e sullo schermo si
+rilegge solo mascherato.
+
+**Intestazioni della richiesta**
+
+| Intestazione | Valore |
+|---|---|
+| `Content-Type` | `application/json; charset=utf-8` |
+| `Accept` | `application/json` |
+| `User-Agent` | `SussurroIA/<versione>`, per esempio `SussurroIA/2.0.1` |
+| `X-Sussurro-Event` | il tipo dell'evento, uguale al campo `event` |
+| `Idempotency-Key` | l'identificativo dell'evento, uguale al campo `event_id` |
+
+**Corpo della richiesta**
+
+```json
+{
+  "event": "note.created",
+  "event_id": "d71bd0d6-2052-4384-a93e-84de62f8cf9f",
+  "occurred_at": "2026-11-12T23:11:07+01:00",
+  "source": {
+    "app": "Sussurro IA",
+    "version": "2.0.1",
+    "device_id": "b0d4c90d-5f3e-4a52-9a43-0c6f2e1d7b88"
+  },
+  "note": {
+    "id": 5,
+    "title": "Portare la macchina dal gommista",
+    "text": "",
+    "category": "Auto",
+    "due_date": "2026-11-20",
+    "due_time": null,
+    "repeat": null,
+    "done": false,
+    "done_at": null,
+    "created_at": "2026-11-12T23:11:07+01:00",
+    "updated_at": "2026-11-12T23:11:07+01:00",
+    "transcript": "devo portare la macchina dal gommista entro il 20 novembre",
+    "needs_review": false
+  }
+}
+```
+
+| Campo | Tipo | Significato |
+|---|---|---|
+| `event` | stringa | `note.created`, `note.updated`, `note.done`, `note.reopened`, `note.deleted`, oppure `test` |
+| `event_id` | stringa (UUID) | identificativo dell'evento, lo stesso a ogni tentativo |
+| `occurred_at` | stringa (ISO 8601 con fuso) | quando è successo |
+| `source.app` | stringa | sempre `Sussurro IA` |
+| `source.version` | stringa | versione dell'app che ha mandato l'evento |
+| `source.device_id` | stringa (UUID) | identificativo casuale dell'installazione, nato al primo uso e poi fisso |
+| `note` | oggetto | la nota com'era in quel momento; **assente** nell'evento `test` |
+| `note.id` | intero | numero della nota **su quel computer**: insieme a `source.device_id` la riconosce fra un evento e l'altro |
+| `note.title` | stringa | titolo |
+| `note.text` | stringa | dettagli; vuota quando il titolo dice già tutto |
+| `note.category` | stringa o `null` | categoria |
+| `note.due_date` | stringa `AAAA-MM-GG` o `null` | scadenza |
+| `note.due_time` | stringa `HH:MM` o `null` | orario; c'è solo insieme a `due_date` |
+| `note.repeat` | `giorno`, `settimana`, `mese`, `anno` o `null` | ricorrenza; c'è solo insieme a `due_date` |
+| `note.done` | booleano | se è fatta |
+| `note.done_at` | stringa (ISO 8601) o `null` | quando è stata fatta |
+| `note.created_at` | stringa (ISO 8601) | quando è nata |
+| `note.updated_at` | stringa (ISO 8601) | ultima modifica |
+| `note.transcript` | stringa o `null` | la trascrizione da cui è nata; `null` per una nota scritta a mano |
+| `note.needs_review` | booleano | vero per una nota **da riordinare** |
+
+Ogni campo c'è sempre, `null` quando non ha valore. Una nota che si ripete,
+quando viene fatta, manda due eventi: `note.done` con la scadenza appena chiusa,
+poi `note.updated` con la successiva. L'evento `note.deleted` porta la nota
+com'era prima di essere eliminata.
+
+**Risposta attesa**
+
+| Risposta | Che cosa fa l'app |
+|---|---|
+| `2xx` | evento consegnato; il corpo della risposta non viene letto |
+| `408`, `425`, `429`, `5xx`, rete assente | resta in coda; si ritenta con attese crescenti, da un minuto a un'ora |
+| ogni altro codice (compresi `3xx`, `401`, `403`, `404`) | l'invio si ferma e lo dice nella pagina 07, finché l'indirizzo non viene sistemato |
+
+Gli eventi partono nell'ordine in cui sono nati: «fatta» non arriva prima di
+«creata». Un evento ritentato può arrivare due volte: chi riceve lo riconosce da
+`event_id` (o dall'intestazione `Idempotency-Key`). I reindirizzamenti non
+vengono seguiti. Ciò che succede a invio spento non viene recuperato quando lo si
+riaccende.
+
 ## Installazione
 
 Requisiti: **Windows 10 o 11 a 64 bit** e un microfono.
@@ -166,8 +306,8 @@ winget upgrade RobertoB.SussurroIA
 ```
 
 Ogni nuova versione passa dall'approvazione del catalogo di winget, che di solito
-richiede qualche giorno: finché la 2.0.0 non è approvata, winget installa la
-versione precedente. Se vuoi la 2.0.0 subito, usa il download qui sotto.
+richiede qualche giorno: finché la 2.0.1 non è approvata, winget installa la
+2.0.0. Se vuoi la 2.0.1 subito, usa il download qui sotto.
 
 ### Dalla pagina Releases
 
@@ -175,8 +315,8 @@ Scarica dalla pagina **[Releases](../../releases/latest)**:
 
 | File | Quando usarlo |
 |---|---|
-| `Sussurro.IA_2.0.0_x64-setup.exe` | installazione normale — **consigliato** |
-| `Sussurro.IA_2.0.0_x64_it-IT.msi` | installazioni gestite, distribuzione aziendale |
+| `Sussurro.IA_2.0.1_x64-setup.exe` | installazione normale — **consigliato** |
+| `Sussurro.IA_2.0.1_x64_it-IT.msi` | installazioni gestite, distribuzione aziendale |
 | `sussurro.exe` | l'eseguibile da solo, se preferisci non installare niente |
 
 Gli SHA256 sono pubblicati nel corpo di ogni release e in
@@ -200,7 +340,7 @@ subito dopo il download:
 Da PowerShell, se preferisci:
 
 ```powershell
-Unblock-File "$HOME\Downloads\Sussurro.IA_2.0.0_x64-setup.exe"
+Unblock-File "$HOME\Downloads\Sussurro.IA_2.0.1_x64-setup.exe"
 ```
 
 Perché funziona: il browser marchia i file scaricati, e Windows mostra l'avviso
@@ -227,9 +367,9 @@ l'account è tuo, e il piano gratuito **non chiede la carta di credito**.
 
 Se preferisci che l'audio non esca dal computer, c'è il
 [motore sul computer](#trascrivere-sul-proprio-computer). La chiave Groq resta
-però necessaria per **tradurre**, per il **modo prompt** e per il
-**perfezionamento del testo**: senza, quei modi inseriscono il testo trascritto
-così com'è, e l'app te lo dice.
+però necessaria per **tradurre**, per il **modo prompt**, per il
+**perfezionamento del testo** e per ordinare le **note**: senza, quei modi
+usano il testo trascritto così com'è, e l'app te lo dice.
 
 Due minuti in tutto:
 
@@ -299,6 +439,11 @@ una **pillola** sempre in primo piano, un ovale piccolo su un bordo dello scherm
 che mostra lo stato — a riposo, in ascolto, in elaborazione — e la sigla della
 lingua di uscita.
 
+La pillola si può **trascinare** con il mouse dove preferisci, afferrandola in un
+punto qualsiasi che non sia un comando, e resta lì anche ai prossimi avvii. Per
+rimetterla sul bordo scegli «in alto» o «in basso» nella pagina **02 microfono**.
+Trascinarla non le dà il fuoco: il campo in cui stavi scrivendo resta attivo.
+
 La pillola **non mostra mai il testo**: quello va a destinazione, non sullo schermo.
 
 Prima prova consigliata: apri il Blocco note, tieni premuto `Ctrl`+`Win`, di'
@@ -309,28 +454,30 @@ dettatura**, si sospende la dettatura o si esce.
 
 ### Il cruscotto
 
-Si apre sul **centro**: un cerchio con lo stato del sistema, da cui partono sette
-linee verso sette pagine numerate. L'ordine è quello in cui ha senso percorrerle:
-prima si configura, poi si detta, e la diagnostica serve quando qualcosa non va.
+Si apre sul **centro**: un cerchio con lo stato del sistema, da cui partono otto
+linee verso otto pagine numerate. L'ordine è quello in cui ha senso percorrerle:
+prima si configura, poi si detta, le note si ritrovano in 07, e la diagnostica
+serve quando qualcosa non va.
 
 | Pagina | A cosa serve |
 |---|---|
-| **01 trascrizione** | motore cloud o sul computer, i modelli da scaricare, taglio dei silenzi, chiave API |
+| **01 trascrizione** | motore cloud o sul computer, il modello che trascrive (di Groq, o uno dei tre da scaricare), taglio dei silenzi, chiave API |
 | **02 microfono** | microfono, posizione della pillola, avvio con Windows, suoni di feedback |
 | **03 scorciatoia** | quale coppia di tasti usare, mani libere, sospensione |
-| **04 testo** | che cosa fa la combinazione tradotta, perfezionamento, scelta e prova dei modelli |
+| **04 testo** | che cosa fa la combinazione tradotta (traduzione, prompt o note), perfezionamento, scelta e prova del modello del testo |
 | **05 dizionario** | parole da riconoscere e sostituzioni |
 | **06 detta** | il promemoria di come si detta e le ultime dettature con il loro esito |
-| **07 diagnostica** | la catena del segnale, il registro tecnico, le azioni di riparazione |
+| **07 note** | le note, i promemoria e l'invio a un altro sistema |
+| **08 diagnostica** | la catena del segnale, il registro tecnico, le azioni di riparazione |
 
 ### Scegliere i modelli
 
-Nella pagina **04 testo** si può cambiare il modello usato da ciascuno dei due
-slot — quello che trascrive la voce nel cloud e quello che traduce o riscrive.
-Puoi chiedere all'endpoint l'elenco dei modelli adatti a quel mestiere, oppure
-scrivere un nome a mano se il filtro è troppo severo.
+Si può cambiare il modello di ciascuno dei due slot: quello che trascrive la voce
+nel cloud (pagina **01 trascrizione**) e quello che traduce o riscrive (pagina
+**04 testo**). Puoi chiedere all'endpoint l'elenco dei modelli adatti a quel
+mestiere, oppure scrivere un nome a mano se il filtro è troppo severo.
 
-Prima di adottarne uno puoi **provarlo**: l'app gli manda le frasi che smascherano
+Prima di adottare un modello del testo puoi **provarlo**: l'app gli manda le frasi che smascherano
 i modelli che *rispondono* invece di tradurre — «qual è la capitale della
 Francia?» deve tornare tradotta, non deve tornare «Parigi» — e lo fa **in tutte le
 lingue di uscita**, non solo in quella attiva. Il motivo è concreto: le difese
@@ -368,11 +515,15 @@ finestra di destinazione non c'è più, o rifiuta l'incolla — il testo dettato
 resta negli appunti perché tu possa incollarlo con Ctrl+V invece di perderlo, e
 in quel caso il contenuto precedente non viene ripristinato.
 
-**Il testo dettato** non viene mai scritto su disco e non compare nei log.
-L'ultima dettatura resta solo in memoria, per il comando «Copia l'ultima
-dettatura», e sparisce chiudendo l'app.
+**Il testo dettato** non viene scritto su disco e non compare nei log, con una
+sola eccezione: le [note](#note-e-promemoria), che restano in `note.json`
+finché non le elimini, compaiono nelle notifiche dei promemoria e partono verso
+un altro sistema **solo se accendi tu l'invio**. Le note vengono ordinate da
+Groq: gli arriva il testo trascritto, non l'audio. L'ultima dettatura resta solo
+in memoria, per il comando «Copia l'ultima dettatura», e sparisce chiudendo
+l'app.
 
-**Il registro tecnico** (pagina 07) tiene le ultime 500 righe di diagnosi, solo in
+**Il registro tecnico** (pagina 08) tiene le ultime 500 righe di diagnosi, solo in
 memoria. Contiene nomi di programmi e titoli di finestre, mai il testo dettato, e
 non lo manda nessuno: lo copi tu con **copia diagnostica**. Rileggilo prima di
 allegarlo a una segnalazione, perché un titolo di finestra può essere il nome di
@@ -381,22 +532,26 @@ un documento.
 **Sul computer restano** le preferenze in un file di testo (`impostazioni.json`,
 nessun segreto: fra le altre cose il dizionario che hai scritto, in chiaro), la
 chiave API nel Gestore credenziali e, se li hai scaricati, i modelli locali in
-`%LOCALAPPDATA%\com.sussurroia.app\modelli`.
+`%LOCALAPPDATA%\com.sussurroia.app\modelli`. Le note stanno in
+`%APPDATA%\com.sussurroia.app\note.json`; l'indirizzo dell'invio, se l'hai
+indicato, nel Gestore credenziali.
 
 **Verso chi ha realizzato il programma non arriva niente.** Nessuna telemetria,
 nessuna statistica d'uso, nessun controllo aggiornamenti. Le connessioni di rete
-che l'app apre sono soltanto quella verso il servizio che hai configurato e il
-download di un modello locale, quando lo chiedi tu.
+che l'app apre sono soltanto quella verso il servizio che hai configurato, il
+download di un modello locale, quando lo chiedi tu, e l'invio delle note
+all'indirizzo che hai scelto, solo se l'hai acceso.
 
 ## Se qualcosa non va
 
 | Sintomo | Dove guardare |
 |---|---|
-| le scorciatoie non rispondono più | cruscotto → **07 diagnostica** → azioni → **forza reinstallazione hook** |
+| le scorciatoie non rispondono più | cruscotto → **08 diagnostica** → azioni → **forza reinstallazione hook** |
 | registra ma non esce testo | pagina **01 trascrizione**: la pastiglia della chiave API è verde? Con il motore sul computer, c'è un modello **in uso**? |
 | il testo non si incolla | se la pillola dice «Inserito senza conferma», la dettatura è negli appunti: premi `Ctrl+V`, o riprendila da **Copia l'ultima dettatura** nell'area di notifica |
 | «Scegli un modello locale» o «non è scaricato» | pagina **01 trascrizione**: scarica un modello, oppure torna al cloud |
-| il testo finisce nella finestra sbagliata | pagina **07**: verifica che **pillola non attivabile** sia spuntato |
+| il testo finisce nella finestra sbagliata | pagina **08**: verifica che **pillola non attivabile** sia spuntato |
+| le note non arrivano al sistema esterno | pagina **07 note** → **invio a un altro sistema**: dice se l'invio si è fermato e perché; **salva e prova** manda un evento di prova |
 | esce testo su frasi mai dette | è un'allucinazione sul silenzio: parla più vicino al microfono |
 | il menu Start si apre a ogni dettatura | spunta **blocca il menu Start al rilascio di Win**, o scegli una scorciatoia senza `Win` nella pagina **03** |
 | non capisci dove si è fermata | la **catena del segnale**: il contatore che smette di crescere dice quale giunzione è muta |

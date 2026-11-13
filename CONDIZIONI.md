@@ -105,10 +105,29 @@ precedente degli appunti non viene ripristinato.
 
 ## Il testo dettato
 
-Non viene mai scritto su disco e non compare nei file di diagnostica. Il registro
-visibile nel cruscotto vive finché la finestra resta aperta. L'ultima dettatura
-viene tenuta solo in memoria, per il comando «Copia l'ultima dettatura», e
-sparisce quando chiudi il programma.
+Non viene scritto su disco e non compare nei file di diagnostica, con una sola
+eccezione: le note (vedi sotto). Il registro visibile nel cruscotto vive finché la
+finestra resta aperta. L'ultima dettatura viene tenuta solo in memoria, per il
+comando «Copia l'ultima dettatura», e sparisce quando chiudi il programma.
+
+## Le note
+
+Quando la scorciatoia tradotta è sul modo «note», ciò che detti non viene scritto
+in nessun campo: il testo trascritto va a Groq per essere ordinato (titolo,
+categoria, scadenza) e resta sul tuo computer, in un file di testo nella cartella
+dei dati del programma (`%APPDATA%\com.sussurroia.app\note.json`), insieme alla
+trascrizione da cui è nato, finché non lo elimini tu dal cruscotto. Lo stesso
+vale per le note che scrivi a mano. Da quel file partono i promemoria, mostrati
+come notifiche di Windows: il titolo e il testo della nota compaiono quindi nella
+notifica e nel centro notifiche.
+
+**Solo se lo accendi tu**, dalla pagina «07 note» del cruscotto, una copia di ogni
+nota creata, cambiata, fatta, riaperta o eliminata viene mandata all'indirizzo
+https che hai indicato. A chi gestisce quell'indirizzo arriva il testo delle
+note, con la trascrizione originale. L'indirizzo, che di solito contiene una
+chiave, è custodito nel Gestore credenziali di Windows e non nel file delle
+impostazioni. Gli eventi non ancora consegnati aspettano in un secondo file nella
+stessa cartella (`spedizioni.json`).
 
 ## Il registro tecnico
 
@@ -117,7 +136,7 @@ esempio: quale programma ha letto gli appunti, se il fuoco è tornato sulla
 finestra giusta, quanti tentativi sono serviti). Vive solo in memoria: non viene
 scritto su disco e sparisce quando chiudi il programma. Contiene nomi di programmi
 e titoli di finestre — che possono coincidere con il nome di un documento — ma
-mai il testo dettato. Non viene inviato a nessuno: lo copi negli appunti tu, e
+mai il testo dettato, nemmeno quello delle note. Non viene inviato a nessuno: lo copi negli appunti tu, e
 solo quando premi «copia diagnostica». Rileggilo prima di allegarlo a una
 segnalazione.
 
@@ -130,7 +149,11 @@ di feedback, le mani libere e il taglio dei silenzi sono accesi; il nome del
 microfono scelto; il motore di trascrizione (cloud o sul computer) e quale modello
 locale hai scelto; il dizionario personalizzato, cioè le parole e le sostituzioni
 che hai scritto tu nel cruscotto (testo tuo, non dettato, che nel file resta in
-chiaro).
+chiaro); le regole degli avvisi delle note e un identificativo casuale di questa
+installazione, usato solo negli eventi mandati al sistema esterno, se accendi
+l'invio.
+
+Le note, nel file descritto sopra.
 
 La chiave API di Groq è custodita nel Gestore credenziali di Windows, non nel
 file. I modelli scaricati stanno in `%LOCALAPPDATA%\com.sussurroia.app\modelli`.
@@ -140,8 +163,9 @@ file. I modelli scaricati stanno in `%LOCALAPPDATA%\com.sussurroia.app\modelli`.
 Niente. Nessuna telemetria, nessuna statistica d'uso, nessun controllo degli
 aggiornamenti. Le uniche connessioni di rete che il programma apre sono quella
 verso il servizio che hai configurato — il servizio di trascrizione e, per
-traduzione, modo prompt e perfezionamento, Groq — e il download di un modello
-locale, solo quando lo chiedi tu.
+traduzione, modo prompt e perfezionamento, Groq — il download di un modello
+locale, solo quando lo chiedi tu, e l'invio delle note all'indirizzo che hai
+indicato, solo se l'hai acceso.
 
 ## Condizioni
 
