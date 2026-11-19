@@ -27,11 +27,23 @@ un'altra applicazione: il testo va dove stava il cursore.
   da mostrare.
 -->
 
+## Novità della 2.2.0
+
+- **Modalità note dal microfono della pillola**: un clic sul microfono e ciò che
+  detti, con **qualunque scorciatoia**, diventa una nota invece di finire nel
+  campo. Un altro clic torna alla dettatura. Le note non occupano più un modo
+  della scorciatoia tradotta.
+- **Etichette**: Casa, Lavoro… le crei tu nella pagina **07 note**, e ogni nota
+  dettata prende l'**etichetta corrente**. Si cambia dal cruscotto o dalla
+  pillola, che in modalità note mostra un bollino con colore e iniziale
+  dell'etichetta. Vedi [Note e promemoria](#note-e-promemoria).
+- **La sigla della pillola apre l'elenco** dei modi (`EN`, `ES`, `DE`, `PR`)
+  invece di farli girare uno dopo l'altro.
+
 ## Novità della 2.0.1
 
-- **Note e promemoria**: un quinto modo della scorciatoia tradotta, **note**,
-  trasforma ciò che detti in note ordinate — titolo, categoria, scadenza — con
-  i promemoria come notifiche di Windows. Vedi [Note e promemoria](#note-e-promemoria).
+- **Note e promemoria**: ciò che detti diventa note ordinate — titolo,
+  categoria, scadenza — con i promemoria come notifiche di Windows.
 - **Invio delle note a un altro sistema**, facoltativo: a ogni nota creata,
   cambiata, fatta, riaperta o eliminata parte un `POST` JSON verso un indirizzo
   `https://` scelto da te. Il formato è descritto in
@@ -65,10 +77,20 @@ un'altra applicazione: il testo va dove stava il cursore.
 | `Ctrl` + `Win` | il testo così come l'hai detto, ripulito dagli intercalari e punteggiato |
 | `Ctrl` + `Shift` + `Win` | il testo **tradotto** in inglese, spagnolo o tedesco |
 | `Ctrl` + `Shift` + `Win` | oppure **riscritto come prompt**, se scegli quel modo |
-| `Ctrl` + `Shift` + `Win` | oppure **salvato fra le note**, senza scrivere niente nel campo |
+| una qualunque, in **modalità note** | niente nel campo: il dettato diventa una **nota** (vedi [Note e promemoria](#note-e-promemoria)) |
 
 Tieni premuto mentre parli, rilascia quando hai finito. Non c'è un tasto per
 iniziare e uno per finire.
+
+La seconda scorciatoia ha un solo comportamento alla volta: dal cruscotto scegli
+se deve tradurre in inglese, spagnolo o tedesco, oppure riscrivere come prompt.
+Si cambia anche con un clic sulla sigla della pillola (`EN`, `ES`, `DE`, `PR`),
+che apre l'elenco dei modi.
+
+La pillola ha due comandi, e sono due cose diverse: il **microfono** dice che
+cosa si fa del dettato — scriverlo nel campo, oppure farne una nota — e un clic
+lo alterna; la **sigla** accanto dice il dettaglio: la lingua in cui esce quando
+si detta, l'etichetta in cui finisce quando si dettano note.
 
 **Si detta in italiano.** È la lingua che l'app dichiara al servizio di
 trascrizione, ed è quella su cui è tarata.
@@ -164,11 +186,13 @@ ascolto» e «ho finito» senza dover guardare la pillola.
 
 ## Note e promemoria
 
-La scorciatoia tradotta ha un quinto modo, accanto alle tre lingue e al prompt:
-**note** (sigla `NT` sulla pillola, «salva come nota» nella pagina **04 testo**).
-In quel modo ciò che detti **non viene scritto in nessun campo**: Groq lo ordina
-in una o più note — titolo, dettagli, categoria e, se l'hai detta, la scadenza —
-e le ritrovi nella pagina **07 note** del cruscotto.
+Un clic sul **microfono della pillola** la porta in **modalità note** (il
+microfono diventa un foglietto; «detta note invece di testo» nella pagina **04
+testo** del cruscotto). In quella modalità ciò che detti, con **qualunque
+scorciatoia**, **non viene scritto in nessun campo**: Groq lo ordina in una o più
+note — titolo, dettagli e, se l'hai detta, la scadenza; l'etichetta è quella
+corrente — e le ritrovi nella pagina **07 note**. Un altro clic sul microfono
+torna alla dettatura.
 
 - **Più cose in una dettatura diventano più note.** «Ricordami di pagare il
   bollo entro venerdì e di chiamare l'idraulico» sono due note, una sola con la
@@ -187,8 +211,14 @@ e le ritrovi nella pagina **07 note** del cruscotto.
   domani o di tre giorni.
 - **Fatta.** Una nota che si ripete, segnata come fatta, non si chiude: passa
   alla scadenza successiva.
+- **Etichette.** Le etichette (Casa, Lavoro…) le crei tu, nella pagina **07
+  note**: una nota dettata prende **l'etichetta corrente**, finché non la cambi.
+  Si cambia dal cruscotto o dalla pillola: in modalità note, al posto della sigla
+  c'è un bollino con colore e iniziale dell'etichetta corrente, e un clic apre
+  l'elenco. Rinominare un'etichetta la rinomina anche sulle note che la portano;
+  eliminarla la toglie solo dall'elenco.
 
-Le note si possono anche scrivere a mano, cercare, filtrare per categoria e
+Le note si possono anche scrivere a mano, cercare, filtrare per etichetta e
 **esportare negli appunti**. Stanno in un file sul computer
 (`%APPDATA%\com.sussurroia.app\note.json`).
 
@@ -211,7 +241,7 @@ rilegge solo mascherato.
 |---|---|
 | `Content-Type` | `application/json; charset=utf-8` |
 | `Accept` | `application/json` |
-| `User-Agent` | `SussurroIA/<versione>`, per esempio `SussurroIA/2.0.1` |
+| `User-Agent` | `SussurroIA/<versione>`, per esempio `SussurroIA/2.2.0` |
 | `X-Sussurro-Event` | il tipo dell'evento, uguale al campo `event` |
 | `Idempotency-Key` | l'identificativo dell'evento, uguale al campo `event_id` |
 
@@ -224,7 +254,7 @@ rilegge solo mascherato.
   "occurred_at": "2026-11-12T23:11:07+01:00",
   "source": {
     "app": "Sussurro IA",
-    "version": "2.0.1",
+    "version": "2.2.0",
     "device_id": "b0d4c90d-5f3e-4a52-9a43-0c6f2e1d7b88"
   },
   "note": {
@@ -257,7 +287,7 @@ rilegge solo mascherato.
 | `note.id` | intero | numero della nota **su quel computer**: insieme a `source.device_id` la riconosce fra un evento e l'altro |
 | `note.title` | stringa | titolo |
 | `note.text` | stringa | dettagli; vuota quando il titolo dice già tutto |
-| `note.category` | stringa o `null` | categoria |
+| `note.category` | stringa o `null` | etichetta; rinominare un'etichetta manda un `note.updated` per ogni nota che la porta |
 | `note.due_date` | stringa `AAAA-MM-GG` o `null` | scadenza |
 | `note.due_time` | stringa `HH:MM` o `null` | orario; c'è solo insieme a `due_date` |
 | `note.repeat` | `giorno`, `settimana`, `mese`, `anno` o `null` | ricorrenza; c'è solo insieme a `due_date` |
@@ -306,8 +336,8 @@ winget upgrade RobertoB.SussurroIA
 ```
 
 Ogni nuova versione passa dall'approvazione del catalogo di winget, che di solito
-richiede qualche giorno: finché la 2.0.1 non è approvata, winget installa la
-2.0.0. Se vuoi la 2.0.1 subito, usa il download qui sotto.
+richiede qualche giorno: finché la 2.2.0 non è approvata, winget installa la
+2.0.1. Se vuoi la 2.2.0 subito, usa il download qui sotto.
 
 ### Dalla pagina Releases
 
@@ -315,8 +345,8 @@ Scarica dalla pagina **[Releases](../../releases/latest)**:
 
 | File | Quando usarlo |
 |---|---|
-| `Sussurro.IA_2.0.1_x64-setup.exe` | installazione normale — **consigliato** |
-| `Sussurro.IA_2.0.1_x64_it-IT.msi` | installazioni gestite, distribuzione aziendale |
+| `Sussurro.IA_2.2.0_x64-setup.exe` | installazione normale — **consigliato** |
+| `Sussurro.IA_2.2.0_x64_it-IT.msi` | installazioni gestite, distribuzione aziendale |
 | `sussurro.exe` | l'eseguibile da solo, se preferisci non installare niente |
 
 Gli SHA256 sono pubblicati nel corpo di ogni release e in
@@ -340,7 +370,7 @@ subito dopo il download:
 Da PowerShell, se preferisci:
 
 ```powershell
-Unblock-File "$HOME\Downloads\Sussurro.IA_2.0.1_x64-setup.exe"
+Unblock-File "$HOME\Downloads\Sussurro.IA_2.2.0_x64-setup.exe"
 ```
 
 Perché funziona: il browser marchia i file scaricati, e Windows mostra l'avviso
@@ -464,10 +494,10 @@ serve quando qualcosa non va.
 | **01 trascrizione** | motore cloud o sul computer, il modello che trascrive (di Groq, o uno dei tre da scaricare), taglio dei silenzi, chiave API |
 | **02 microfono** | microfono, posizione della pillola, avvio con Windows, suoni di feedback |
 | **03 scorciatoia** | quale coppia di tasti usare, mani libere, sospensione |
-| **04 testo** | che cosa fa la combinazione tradotta (traduzione, prompt o note), perfezionamento, scelta e prova del modello del testo |
+| **04 testo** | che cosa fa la combinazione tradotta (traduzione o prompt), detta note invece di testo, perfezionamento, scelta e prova del modello del testo |
 | **05 dizionario** | parole da riconoscere e sostituzioni |
 | **06 detta** | il promemoria di come si detta e le ultime dettature con il loro esito |
-| **07 note** | le note, i promemoria e l'invio a un altro sistema |
+| **07 note** | le note, le etichette, i promemoria e l'invio a un altro sistema |
 | **08 diagnostica** | la catena del segnale, il registro tecnico, le azioni di riparazione |
 
 ### Scegliere i modelli
